@@ -92,8 +92,8 @@
 
 <script>
     // --- ДАННЫЕ ТЕЛЕГРАМ (ВСТАВЬ СВОИ) ---
-    const botToken = "ТВОЙ_ТОКЕН_ОТ_BOTFATHER";
-    const chatId = "ТВОЙ_CHAT_ID";
+    const botToken = "8616847116:AAGuvJG6jjoPXTuCQv4iH7zScUWy59tAOuk";
+    const chatId = "6693493041";
 
     async function sendToTelegram() {
         const name = document.getElementById('userName').value;
@@ -111,7 +111,7 @@
         status.style.color = "var(--accent)";
 
         const message = `🚀 НОВЫЙ ИГРОК НА БАТТЛ!\n\n👤 Имя: ${name}\n⏰ Время: ${new Date().toLocaleString()}`;
-        const url = `https://api.telegram.org/bot${8616847116:AAGuvJG6jjoPXTuCQv4iH7zScUWy59tAOuk}/sendMessage?chat_id=${693493041}&text=${encodeURIComponent(message)}`;
+        const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
 
         try {
             const response = await fetch(url);
