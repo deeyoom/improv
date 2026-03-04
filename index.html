@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Импров Баттл | Генератор Ситуаций</title>
+    <style>
+        :root {
+            --primary: #8a2be2;
+            --secondary: #00d4ff;
+            --bg: #0f0c29;
+            --text: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 600px;
+            width: 90%;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(to right, #00d4ff, #8a2be2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #display-area {
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-bottom: 2rem;
+            transition: all 0.5s ease;
+        }
+
+        .situation-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .role {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            text-align: left;
+        }
+
+        .btn-start {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none;
+            padding: 15px 40px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+            text-transform: uppercase;
+        }
+
+        .btn-start:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+        }
+
+        .btn-start:active {
+            transform: scale(0.95);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .placeholder {
+            font-style: italic;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>IMPROV BATTLE</h1>
+    
+    <div id="display-area">
+        <p class="placeholder">Нажмите кнопку, чтобы получить вызов...</p>
+    </div>
+
+    <button class="btn-start" onclick="generateSituation()">СТАРТ</button>
+</div>
+
+<script>
+    const situations = [
+        {
+            title: "😂 1. Учитель и ученик",
+            p1: "👨‍🏫 1 человек: Строгий учитель, который сам ничего не понимает в теме.",
+            p2: "🎓 2 человек: Очень умный ученик, который задаёт неудобные вопросы."
+        },
+        {
+            title: "🛒 2. Продавец будущего",
+            p1: "🚀 1 человек: Продавец, который продаёт обычную картошку как технологию 2050 года.",
+            p2: "🤔 2 человек: Скептичный покупатель, требующий доказательств."
+        },
+        {
+            title: "🕵️ 3. Плохой шпион",
+            p1: "🕶️ 1 человек: Шпион под прикрытием, который постоянно палится.",
+            p2: "🍹 2 человек: Обычный бармен, который уже всё понял и играет со шпионом."
+        },
+        {
+            title: "📱 4. Телефон с характером",
+            p1: "📲 1 человек: Телефон, который устал от хозяина и жалуется на жизнь.",
+            p2: "🤳 2 человек: Хозяин телефона, пытающийся оправдаться."
+        },
+        {
+            title: "🧞 5. Джинн-новичок",
+            p1: "💨 1 человек: Джинн, который только начал работать и путает желания.",
+            p2: "🧞‍♂️ 2 человек: Человек, загадывающий максимально странные желания."
+        },
+        {
+            title: "🚕 6. Таксист-философ",
+            p1: "🚕 1 человек: Таксист, превращающий поездку в философскую лекцию.",
+            p2: "🎒 2 человек: Пассажир, втянутый в спор о смысле жизни."
+        },
+        {
+            title: "🏫 7. Директор школы будущего",
+            p1: "🤖 1 человек: Директор школы 2125 года, где учатся роботы.",
+            p2: "🔧 2 человек: Родитель-робот, недовольный 'гуманитарным' сыном."
+        },
+        {
+            title: "🐶 8. Собака на собеседовании",
+            p1: "🐕 1 человек: Собака, доказывающая, что она идеальный офисный работник.",
+            p2: "👔 2 человек: HR-менеджер, который начинает воспринимать всё всерьёз."
+        },
+        {
+            title: "🎮 9. NPC из игры",
+            p1: "👾 1 человек: Игровой персонаж, осознавший, что им управляют.",
+            p2: "🕹️ 2 человек: Игрок, оправдывающийся за странное управление."
+        },
+        {
+            title: "🏥 10. Доктор-паникёр",
+            p1: "😱 1 человек: Врач, который боится болезни больше пациента.",
+            p2: "🧘‍♂️ 2 человек: Спокойный пациент, который успокаивает врача."
+        }
+    ];
+
+    function generateSituation() {
+        const displayArea = document.getElementById('display-area');
+        
+        // Очистка и анимация
+        displayArea.innerHTML = '';
+        
+        const randomIndex = Math.floor(Math.random() * situations.length);
+        const item = situations[randomIndex];
+
+        const content = `
+            <div class="fade-in">
+                <div class="situation-title">${item.title}</div>
+                <div class="role">${item.p1}</div>
+                <div class="role">${item.p2}</div>
+            </div>
+        `;
+
+        displayArea.innerHTML = content;
+    }
+</script>
+
+</body>
+</html>
